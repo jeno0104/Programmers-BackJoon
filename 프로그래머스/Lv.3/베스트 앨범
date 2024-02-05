@@ -1,0 +1,28 @@
+function solution(genres, plays) {
+    var answer = {};
+    let result = [];
+
+    for (let i = 0; i < genres.length; i++) {
+        let genre = genres[i];
+        let play = plays[i];
+        let key = String(i);
+
+        if (!answer[genre]) {
+            answer[genre] = { totalPlays: 0, songs: [] };
+        }
+
+        answer[genre].totalPlays += play;
+        answer[genre].songs.push({ key: key, play: play });
+    }
+    for (let genreData of Object.values(answer)) {
+        genreData.songs.sort((a, b) => b.play - a.play);
+    }
+    const sortedGenres = Object.keys(answer).sort((a, b) => answer[b].totalPlays - answer[a].totalPlays);
+
+    for (let genre of sortedGenres) {
+        for (let i = 0; i < 2 && i < answer[genre].songs.length; i++) {
+            result.push(Number(answer[genre].songs[i].key));
+        }
+    }
+    return result;
+}
