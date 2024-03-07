@@ -1,9 +1,11 @@
 def solution(numbers):
     answer = []
-    for i in range(0, len(numbers) - 1):
+    numbers.sort()
+    print(numbers);
+    for i in range(0, len(numbers)):
         for j in range(i + 1, len(numbers)):
-            add = numbers[i] + numbers[j]
-            if(add not in answer):
-                answer.append(add)
-    answer.sort(reverse=False)
+            answer.append(numbers[i] + numbers[j])
+    answer = list(set(answer));
+    answer.sort()
+    
     return answer
