@@ -1,27 +1,48 @@
 def solution(s):
     answer = 0
-    n = len(s)
+    arr_s = list(s)
+    result = []
     
-    for i in range(n):
-        stack = []
-        for j in range(n):
-            c = s[(i + j) % n]
-            if c == "(" or c == "{" or c == "[":
-                stack.append(c)
-            else:
-                if not stack:
-                    break
-                if c == ")" and stack[-1] == "(":
-                    stack.pop()
-                elif c == "}" and stack[-1] == "{":
-                    stack.pop()
-                elif c == "]" and stack[-1] == "[":
-                    stack.pop()
+    for i in range(len(arr_s)):
+        if i == 0:
+            for j in range(len(arr_s)):
+                if len(result) == 0:
+                    result.append(arr_s[j])                    
+                elif arr_s[j] == "]":
+                    if result[-1] == "[":
+                        result.pop()
+                elif arr_s[j] == "}":
+                    if result[-1] == "{":
+                        result.pop()
+                elif arr_s[j] == ")":
+                    if result[-1] == "(":
+                        result.pop()
                 else:
-                    break 
-        else:
-            if not stack:
+                    result.append(arr_s[j])
+            if len(result) == 0:
                 answer += 1
+            result = []
+        else:
+            pop_value = arr_s.pop(0)
+            arr_s.append(pop_value)
+            for j in range(len(arr_s)):
+                if len(result) == 0:
+                    result.append(arr_s[j])
+                elif arr_s[j] == "[" or arr_s[j] == "{" or arr_s[j] == "(":
+                    result.append(arr_s[j])
+                elif arr_s[j] == "]" and result[-1] == "[":
+                    result.pop()
+                elif arr_s[j] == "}" and result[-1] == "{":
+                    result.pop()
+                elif arr_s[j] == ")" and result[-1] == "(":
+                    result.pop()
+            if len(result) == 0:
+                answer += 1
+            result = []
+            
+            
+            
+            
+            
+
     return answer
-    
-                
