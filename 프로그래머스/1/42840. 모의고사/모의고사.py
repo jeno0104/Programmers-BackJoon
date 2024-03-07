@@ -1,21 +1,19 @@
 def solution(answers):
-    patterns = [
+    result = []
+    end = []
+    jjic = [
         [1, 2, 3, 4, 5],
         [2, 1, 2, 3, 2, 4, 2, 5],
         [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
     ]
-    
-    scores = [0] * 3
-    
-    for i, answer in enumerate(answers):
-        for j, pattern in enumerate(patterns):
-            if answer == pattern[i % len(pattern)]:
-                scores[j] += 1
-                
-    max_score = max(scores)
-    
-    result = []
-    for i, score in enumerate(scores):
-        if(score == max_score):
-            result.append(i + 1)
-    return result
+    for i, pattern in enumerate(jjic):
+        count = 0
+        for j, answer in enumerate(answers):
+            if answer == pattern[j % len(pattern)]:
+                count += 1
+        result.append(count)
+    max_num = max(result)
+    for i, num in enumerate(result):
+        if max_num == num:
+            end.append(i + 1)
+    return end
