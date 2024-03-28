@@ -1,15 +1,22 @@
 from collections import deque
 
-dx = [0, 0, 1, -1]
-dy = [1, -1, 0, 0]
+n = int(input())
+graph = []
+result = []
+answer = []
 
+for i in range(n):
+    graph.append(list(map(int, input())))
 
-def bfs(graph, a, b):
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
+def bfs(graph, x, y):
     n = len(graph)
     queue = deque()
-    queue.append((a, b))
-    graph[a][b] = 0
-    count = 1
+    queue.append((x, y))
+    graph[x][y] = 0
+    answer = 1
 
     while queue:
         x, y = queue.popleft()
@@ -21,22 +28,17 @@ def bfs(graph, a, b):
             if graph[nx][ny] == 1:
                 graph[nx][ny] = 0
                 queue.append((nx, ny))
-                count += 1
-    return count
+                answer += 1
+    return answer
 
 
-n = int(input())
-graph = []
-for i in range(n):
-    graph.append(list(map(int, input())))
-
-cnt = []
 for i in range(n):
     for j in range(n):
         if graph[i][j] == 1:
-            cnt.append(bfs(graph, i, j))
+            result.append(bfs(graph, i, j))
 
-cnt.sort()
-print(len(cnt))
-for i in range(len(cnt)):
-    print(cnt[i])
+result.sort()
+
+print(len(result))
+for i in result:
+    print(i)
