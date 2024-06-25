@@ -1,14 +1,18 @@
-n, m = map(int, input().split())
-n_number = list(map(int, input().split()))
-i_j_number = []
+import sys 
 
-s = []
-s.append(0)
+input = sys.stdin.readline
+
+n, m  = map(int, input().split())
+
+number = list(map(int, input().split()))
+
+gugan_sum = [0]
+
+for i in range(len(number)):
+    sum = gugan_sum[i] + number[i]
+    gugan_sum.append(sum)
+
 for i in range(m):
-    i_j_number.append(list(map(int, input().split())))
+    a, b = map(int, input().split())
+    print(gugan_sum[b] - gugan_sum[a - 1])
 
-for i in range(0, len(n_number)):
-    s.append(s[i] + n_number[i]) 
-
-for i in range(m):
-    print(s[i_j_number[i][1]] - (s[i_j_number[i][0] - 1]))
