@@ -1,48 +1,24 @@
 def solution(s):
-    answer = 0
-    arr_s = list(s)
-    result = []
+    stack = []
     
-    for i in range(len(arr_s)):
-        if i == 0:
-            for j in range(len(arr_s)):
-                if len(result) == 0:
-                    result.append(arr_s[j])                    
-                elif arr_s[j] == "]":
-                    if result[-1] == "[":
-                        result.pop()
-                elif arr_s[j] == "}":
-                    if result[-1] == "{":
-                        result.pop()
-                elif arr_s[j] == ")":
-                    if result[-1] == "(":
-                        result.pop()
-                else:
-                    result.append(arr_s[j])
-            if len(result) == 0:
-                answer += 1
-            result = []
-        else:
-            pop_value = arr_s.pop(0)
-            arr_s.append(pop_value)
-            for j in range(len(arr_s)):
-                if len(result) == 0:
-                    result.append(arr_s[j])
-                elif arr_s[j] == "[" or arr_s[j] == "{" or arr_s[j] == "(":
-                    result.append(arr_s[j])
-                elif arr_s[j] == "]" and result[-1] == "[":
-                    result.pop()
-                elif arr_s[j] == "}" and result[-1] == "{":
-                    result.pop()
-                elif arr_s[j] == ")" and result[-1] == "(":
-                    result.pop()
-            if len(result) == 0:
-                answer += 1
-            result = []
-            
-            
-            
-            
-            
-
-    return answer
+    s = list(s)
+    count = 0
+    flag = False
+    for i in range(len(s)):
+        for s_str in s:
+            if s_str == "[" or s_str == "{" or s_str == "(":
+                stack.append(s_str)
+                flag = True
+            elif s_str == "]" and len(stack) != 0 and stack[-1] == "[":
+                stack.pop()
+            elif s_str == "}" and len(stack) != 0 and stack[-1] == "{":
+                stack.pop() 
+            elif s_str == ")" and len(stack) != 0 and stack[-1] == "(":
+                stack.pop()
+        if flag and len(stack) == 0:
+            count += 1
+        s_pop_value = s.pop(0)
+        s.append(s_pop_value)
+        stack = []
+    return count
+        
