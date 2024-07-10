@@ -5,24 +5,15 @@ let input = fs.readFileSync("/dev/stdin").toString().split("\n");
 let n = Number(input[0]);
 let lengths = input[1].split(" ").map(Number);
 let prices = input[2].split(" ").map(Number);
-let newPrices = [];
-let answer = 0;
-let totalLength = 0;
-for(let i = 0; i < prices.length - 1; i++){
-  newPrices.push(prices[i]);
-  totalLength += lengths[i];
-}
 
-newPrices.sort((a, b) => a - b);
+let minPrice = prices[0];
 
-for(let i = 0; i < newPrices.length; i++){
-  if(newPrices[0] === prices[i]){
-    answer += newPrices[0] * totalLength;
-    break;
-  }
-  else{
-    answer += prices[i] * lengths[i];
-    totalLength -= lengths[i];
-  }
+for(let i = 0; i < n; i++){
+  minPrice = Math.min(minPrice, prices[i]);
+  prices[i] = minPrice;
 }
-console.log(answer);
+let answer = BigInt(0);
+for(let i = 0; i < n - 1; i++){
+  answer += BigInt(prices[i]) * BigInt(lengths[i]);
+}
+console.log(String(answer))
