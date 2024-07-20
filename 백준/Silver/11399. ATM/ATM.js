@@ -1,17 +1,19 @@
 let fs = require("fs");
-
 let input = fs.readFileSync("/dev/stdin").toString().split("\n");
 
 let n = Number(input[0]);
-let usedTime = input[1].split(" ").map(Number);
 
-usedTime.sort((a, b) => a - b);
+let number = input[1].split(" ").map(Number);
 
+
+number.sort((a, b) => a - b);
+
+let curr = 0;
 let answer = 0;
-let summary = 0;
 
-for(let i = 0; i < n; i++){
-  summary += usedTime[i];
-  answer += summary
+for(let i = 0; i < number.length; i++){
+  curr = curr + number[i];
+  answer += curr;
 }
 console.log(answer);
+
