@@ -1,14 +1,12 @@
 let fs = require("fs");
-
 let input = fs.readFileSync("/dev/stdin").toString().split("\n");
 
-
 let n = Number(input[0]);
-
-for(let i = 1; i < n + 1; i++){
-  let star = ""
+let answer = "";
+for(let i = 1; i <= n; i++){
   for(let j = 0; j < i; j++){
-    star += "*";
+    answer += "*";
   }
-  console.log(star);
+  console.log(answer);
+  answer = ""
 }
