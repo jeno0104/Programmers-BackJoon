@@ -1,25 +1,24 @@
 let fs = require("fs");
+
 let input = fs.readFileSync("/dev/stdin").toString().split("\n");
-let total = Number(input[0]);
 
-let answer = 0;
+let n = Number(input[0]);
+let result = 0;
 
-
-while(total > 0){
-  if(total % 5 === 0){
-    answer += parseInt(total / 5);
-    break;
-  } 
+while(n > 0){
+  if(n % 5 === 0){
+    n -= 5;
+    result += 1;
+  }
   else{
-    total -= 3;
-    answer++;
+    n -= 3;
+    result += 1;
   }
 }
 
-if(total < 0){
-  console.log(-1);
+if(n === 0){
+  console.log(result);
 }
 else{
-  console.log(answer);
+  console.log(-1);
 }
-
