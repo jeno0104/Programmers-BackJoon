@@ -2,18 +2,20 @@ let fs = require("fs");
 let input = fs.readFileSync("/dev/stdin").toString().split("\n");
 
 let n = Number(input[0]);
-let data = input[1].split(" ").map(Number);
-let result = 0;
-let arrow = new Array(1000001).fill(0);
+let bl = input[1].split(" ").map(Number);
 
-for(let x of data){
-  if(arrow[x] > 0){
-    arrow[x] -= 1;
-    arrow[x - 1] += 1;
+
+let arrow = new Array(n + 1).fill(0);
+let result = 0;
+for(let i of bl){
+  if(arrow[i] > 0){ 
+    arrow[i] -= 1;
+    arrow[i - 1] += 1;
   }
   else{
-    arrow[x - 1] += 1;
-    result++;
+    arrow[i - 1] += 1;
+    result += 1;
   }
 }
-console.log(result);
+
+console.log(result)
