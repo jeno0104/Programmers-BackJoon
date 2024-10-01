@@ -1,32 +1,28 @@
 let fs = require("fs");
 let input = fs.readFileSync("/dev/stdin").toString().split("\n");
 
-let testCase = Number(input[0]);
+let testCase = input[0];
 let start = 1;
-let result = [];
 
 for(let i = 0; i < testCase; i++){
-  let sawon = Number(input[start]);
-  let people = [];
-  let cnt = 0;
-  start++;
-  
-  for(let j = start; j < sawon + start; j++){
+  let newEm = [];
+  let answer = 1;
+  let n = Number(input[start]);
+
+  for(let j = start + 1; j <= start + n; j++){
     let [a, b] = input[j].split(" ").map(Number);
-    people.push([a, b]);
+    newEm.push([a, b]);
   }
-  start += people.length; 
-  people.sort((a, b) => a[0] - b[0])
-
-  let minValue = 100001;
-
-  for(let [x, y] of people){
-    if(y < minValue){
-      minValue = y;
-      cnt++;
+  
+  newEm.sort((a, b) => a[0] - b[0]);
+  let min = newEm[0][1];
+  
+  for(let k = 1; k < newEm.length; k++){
+    if(newEm[k][1] < min){
+      min = newEm[k][1];
+      answer++;
     }
   }
-  result.push(cnt);
+  start += n + 1;
+  console.log(answer);
 }
-
-for(let value of result) console.log(value);
