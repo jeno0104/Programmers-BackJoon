@@ -1,11 +1,15 @@
 let fs = require("fs");
 let input = fs.readFileSync("/dev/stdin").toString().split("\n");
 
+let testCase = Number(input[0]);
+let start = 1;
+
 function dfs(graph, n, m, x, y){
   if(x <= -1 || x >= n || y <= -1 || y >= m){
     return false;
   }
-  if(graph[x][y] === 1){
+
+  if(graph[x][y] == 1){
     graph[x][y] = -1;
 
     dfs(graph, n, m, x - 1, y);
@@ -17,26 +21,26 @@ function dfs(graph, n, m, x, y){
   return false;
 }
 
-let testCase = Number(input[0]);
-let line = 1;
-
-while(testCase--){
-  let [m, n, k] = input[line].split(" ").map(Number);
+for(let i = 0; i < testCase; i++){
+  let [m, n, k] = input[start].split(" ").map(Number);
+  start++;
   let graph = [];
-  for(let i = 0; i < n; i++){
-    graph[i] = new Array(m).fill(0);
+  
+  for(let a = 0; a < n; a++){
+    graph[a] = new Array(m);
   }
-  for(let i = 1; i <= k; i++){
-    let [y, x] = input[line + i].split(" ").map(Number);
+  
+  for(let j = start; j < start + k; j++){
+    let [y, x] = input[j].split(" ").map(Number);
     graph[x][y] = 1;
   }
-
   let answer = 0;
-  for(let i = 0; i < n; i++){
-    for(let j = 0; j < m; j++){
-      if(dfs(graph, n, m, i, j)) answer++;
+
+  for(let b = 0; b < n; b++){
+    for(let c = 0; c < m; c++){
+      if(dfs(graph, n, m, b, c)) answer++;
     }
   }
-  line += k + 1;
+  start += k;
   console.log(answer);
 }
