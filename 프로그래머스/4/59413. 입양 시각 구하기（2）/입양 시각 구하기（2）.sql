@@ -1,9 +1,8 @@
-SET @HOUR := -1;
+-- 코드를 입력하세요
+SET @HOUR := -1; # SET은 하나의 변수를 생성할 때 사용
 
 SELECT @HOUR := @HOUR + 1 AS HOUR
-    , (SELECT COUNT(*) FROM ANIMAL_OUTS 
-      WHERE HOUR(DATETIME) = @HOUR) AS COUNT
+    , (SELECT COUNT(*) FROM ANIMAL_OUTS
+       WHERE HOUR(DATETIME) = @HOUR) AS COUNT
 FROM ANIMAL_OUTS
 WHERE @HOUR < 23
-ORDER BY HOUR
-# 하나의 변수를 생성할 때 사용하는게 SET
