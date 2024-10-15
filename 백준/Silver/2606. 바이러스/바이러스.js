@@ -1,30 +1,28 @@
 let fs = require("fs");
 let input = fs.readFileSync("/dev/stdin").toString().split("\n");
 
-let n = Number(input[0]);
-let computers = Number(input[1]);
+let n = Number(input[0])
+let m = Number(input[1]);
+let arr = new Array(n + 1).fill(0).map(() => []);
 let visited = new Array(n + 1).fill(false);
-
-let connectedCom = Array.from({ length: n + 1 }, () => []);
 let cnt = 0;
 
-for(let i = 0; i < computers; i++){
-  let [x, y] = input[i + 2].split(" ").map(Number);
-  connectedCom[x].push(y);
-  connectedCom[y].push(x);
-
-}
 function dfs(arr, v, visited){
   visited[v] = true;
-  cnt += 1;
-
-  for(let i of arr[v]){
-    if(!visited[i]){
-      dfs(arr, i, visited); 
+  cnt++;
+  
+  for(let x of arr[v]){
+    if(!visited[x]){
+      dfs(arr, x, visited);
     }
   }
 }
 
-dfs(connectedCom, 1, visited);
+for(let i = 2; i < m + 2; i++){
+  let [x, y] = input[i].split(" ").map(Number);
+  arr[x].push(y);
+  arr[y].push(x);
+}
+dfs(arr, 1, visited);
 
 console.log(cnt - 1);
