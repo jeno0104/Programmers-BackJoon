@@ -1,28 +1,43 @@
 function solution(n, words) {
     var answer = [];
-    let stack = [];
-    let flag = 0;
-    let count = 0;
+    let current = [];
+
+    
+//     for(let i = 0; i < 9; i++){
+//         console.log(i % 3); // 누구냐? 
+//         console.log(Math.ceil((i + 1) / 3)); // 답
+//         console.log("============")
+//     }
+//     // console.log( 8 % 3 + 1, Math.ceil(9 / 2))
+    
+    
+    
+    let whoIs = 0;
+    let position = 0;
+    
     for(let i = 0; i < words.length; i++){
-        if(flag !== n){
-            flag += 1;
+       
+        if(current.length === 0){
+            current.push(words[i]);
+            continue
+        }
+        let first = words[i - 1].split("");
+        let second = words[i].split("");
+        // console.log(`first = ${first}, 마지막 = ${first[first.length - 1]}, second = ${second}, 처음 = ${second[0]}`)
+        if(current.includes(words[i])){
+            whoIs = (i % n) + 1;
+            position = Math.ceil((i + 1) / n);
+            break;
+        }
+        else if(first[first.length - 1] !== second[0]){
+            whoIs = (i % n) + 1;
+            position = Math.ceil((i + 1) / n);
+            break;
         }
         else{
-            flag = 1;
+            current.push(words[i]);
         }
-        count += 1;
-        if(stack.length !== 0){
-            let stack_val = stack[stack.length - 1];
-            if(stack_val[stack_val.length - 1] !== words[i][0]){
-                return [flag, Math.ceil(count / n)];
-            }
-            // console.log(stack.includes(words[i]));
-            else if(stack.includes(words[i])){
-                return [flag, Math.ceil(count / n)];
-            }
-        }
-        stack.push(words[i]);
     }
-
-    return [0, 0];
+    
+    return ([whoIs, position])
 }
