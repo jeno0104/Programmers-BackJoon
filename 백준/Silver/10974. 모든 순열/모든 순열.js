@@ -2,20 +2,21 @@ let fs = require("fs");
 let input = fs.readFileSync("/dev/stdin").toString().split("\n");
 
 let n = Number(input[0]);
+
+let visited = new Array(n).fill(false);
 let arr = [];
+let answer = [];
+let selected = [];
 
 for(let i = 1; i <= n; i++) arr.push(i);
-
-let selected = [];
-let visited = [];
-
-let answer = "";
 
 function dfs(arr, depth){
   if(depth === n){
     let result = [];
-    for(let x of selected) result.push(arr[x]);
-    for(let i of result) answer += i + " ";
+    for(let i of selected) result.push(i);
+    for(let x of result){
+      answer += x + 1 + " ";
+    }
     answer += "\n";
     return;
   }
@@ -27,6 +28,8 @@ function dfs(arr, depth){
     selected.pop();
     visited[i] = false;
   }
+
+  
 }
 
 dfs(arr, 0);
