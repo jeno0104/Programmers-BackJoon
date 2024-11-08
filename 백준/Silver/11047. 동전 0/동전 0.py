@@ -1,14 +1,17 @@
-N, K = map(int, input().split())
+n, k = map(int, input().split())
+
 coins = []
-for i in range(N):
+
+for i in range(n):
     coins.append(int(input()))
 
 coins.sort(reverse = True)
+
 count = 0
 
 for coin in coins:
-    if K // coin != 0 and K != 0:
-        count += (K // coin)
-        K -= (K // coin) * coin
-        
+    if(k >= coin):
+        count += k // coin
+        k = k % coin
+
 print(count)
