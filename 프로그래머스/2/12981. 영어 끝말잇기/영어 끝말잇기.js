@@ -1,43 +1,32 @@
 function solution(n, words) {
     var answer = [];
-    let current = [];
-
-    
-//     for(let i = 0; i < 9; i++){
-//         console.log(i % 3); // 누구냐? 
-//         console.log(Math.ceil((i + 1) / 3)); // 답
-//         console.log("============")
-//     }
-//     // console.log( 8 % 3 + 1, Math.ceil(9 / 2))
-    
-    
-    
-    let whoIs = 0;
-    let position = 0;
-    
-    for(let i = 0; i < words.length; i++){
-       
-        if(current.length === 0){
-            current.push(words[i]);
-            continue
+    let stack = [];
+    stack.push(words[0]);
+    let first = 0;
+    let second = 0;
+//     1. includes
+//     2. stack 맨 위에 맨 끝 글자와 맨 처음 글자 비교해서 같은지 비교
+    for(let i = 1; i < words.length; i++){
+        let stackValue = stack[stack.length - 1];
+        
+        if(stack.includes(words[i])){
+            // console.log(`포함된 케이스: i = ${i}`)
+            first = parseInt(i % n) + 1
+            second = parseInt(i / n) + 1
+            return [first, second];
         }
-        let first = words[i - 1].split("");
-        let second = words[i].split("");
-        // console.log(`first = ${first}, 마지막 = ${first[first.length - 1]}, second = ${second}, 처음 = ${second[0]}`)
-        if(current.includes(words[i])){
-            whoIs = (i % n) + 1;
-            position = Math.ceil((i + 1) / n);
-            break;
-        }
-        else if(first[first.length - 1] !== second[0]){
-            whoIs = (i % n) + 1;
-            position = Math.ceil((i + 1) / n);
-            break;
+        
+        if(stackValue[stackValue.length - 1] === words[i][0]){
+            stack.push(words[i]);
         }
         else{
-            current.push(words[i]);
+            // console.log(`끝말잇기가 안맞는 케이스 : i = ${i}`)
+            first = parseInt(i % n) + 1
+            second = parseInt(i / n) + 1
+            return [first, second]
         }
+        
     }
-    
-    return ([whoIs, position])
+
+    return [first, second];
 }
